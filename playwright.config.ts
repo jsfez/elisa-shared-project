@@ -28,12 +28,9 @@ export default defineConfig({
   },
 
   // Add Argos reporter only when it runs on CI
-  reporter: [
-    [
-      "@argos-ci/playwright/reporter",
-      { buildName: process.env.BUILDNAME } as ArgosReporterOptions,
-    ],
-  ],
+  reporter: process.env.CI
+    ? [["list"], ["@argos-ci/playwright/reporter"]]
+    : "list",
 
   /* Configure projects for major browsers */
   projects: [
