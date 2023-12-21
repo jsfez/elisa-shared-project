@@ -17,12 +17,14 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests first build
-        run: |
-          export BUILDNAME=first npx playwright test
-      - name: Run Playwright tests second build
-        run: |
-          export BUILDNAME=second npx playwright test
+      - name: Run Playwright tests first time
+        run: npx playwright test
+        env:
+          BUILDNAME: first
+      - name: Run Playwright tests second time
+        run: npx playwright test
+        env:
+          BUILDNAME: second
       - uses: actions/upload-artifact@v3
         if: always()
         with:
