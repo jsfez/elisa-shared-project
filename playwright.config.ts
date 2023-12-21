@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import type { ArgosReporterOptions } from "@argos-ci/playwright/reporter";
 
 /**
  * Read environment variables from file.
@@ -28,7 +29,13 @@ export default defineConfig({
 
   // Add Argos reporter only when it runs on CI
   reporter: process.env.CI
-    ? [["list"], ["@argos-ci/playwright/reporter"]]
+    ? [
+        ["list"],
+        [
+          "@argos-ci/playwright/reporter",
+          { buildName: process.env.BUILDNAME } as ArgosReporterOptions,
+        ],
+      ]
     : "list",
 
   /* Configure projects for major browsers */
